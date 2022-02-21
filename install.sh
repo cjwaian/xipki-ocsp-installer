@@ -70,24 +70,27 @@ rm -rf TOMCAT_WEBAPP_ROOT_WAR="${TOMCAT_WEBAPP_DIR}/ROOT.war"
 
 
 echo "org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true" >> $TOMCAT_PROPERTIES
-echo "Edit $TOMCAT_PROPERTIES: tomcat.util.scan.StandardJarScanFilter.jarsToSkip"
-echo "bcprov-*.jar,\
-bcpkix-*.jar,\
-bcutil-*.jar,\
-datasource-*.jar,\
-fastjson-*.jar,\
-HikariCP-*.jar,\
-log4j-*.jar,\
-mariadb-java-client-*.jar,\
-ocsp-*.jar,\
-password-*.jar,\
-postgresql-*.jar,\
-security-*.jar,\
-slf4j-*.jar,\
-sunpkcs11-wrapper-*.jar,\
-*-tinylog.jar,\
-tinylog*.jar,\
-util-*.jar"
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a animal-sniffer-annotations*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a bcprov-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a bcpkix-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a bcutil-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a datasource-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a fastjson-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a HikariCP-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a log4j-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a mariadb-java-client-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a ocsp-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a password-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a postgresql-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a security-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a slf4j-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a sunpkcs11-wrapper-*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a *-tinylog.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a tinylog*.jar,\\' $TOMCAT_PROPERTIES
+sed -i '/^tomcat\.util\.scan\.StandardJarScanFilter\.jarsToSkip.*$/a util-*.jar,\\' $TOMCAT_PROPERTIES
+
+
+
 
 rm -f /.postinstall.done
 
@@ -96,6 +99,9 @@ cd $TOMCAT_DIR
 sh $TOMCAT_DIR/.postinstall.systemd
 cd $WORK_DIR
 rm -f $TOMCAT_DIR/.postinstall.systemd
+sed -i "/^Type.*$/a WorkingDirectory=$TOMCAT_DIR" /usr/lib/systemd/system/jws5-tomcat.service
+systemctl daemon-reload
+
 
 chmod +x $TOMCAT_DIR/.postinstall.selinux
 cd $TOMCAT_DIR
