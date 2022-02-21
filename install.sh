@@ -262,10 +262,8 @@ chmod -R +x $TOMCAT_DIR/bin
 
 
 
-# set WorkingDirectory=$TOMCAT_DIR in /usr/lib/systemd/system/jws5-tomcat.service
-systemctl disable --now fapolicyd
+
 systemctl enable jws5-tomcat.service --now
-systemctl disable --now fapolicyd
 
 
 exit 0
