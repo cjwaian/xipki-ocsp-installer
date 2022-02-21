@@ -36,12 +36,10 @@ mysql -e "FLUSH PRIVILEGES";
 mysql -u root -p$DB_ROOT_PASS -e "CREATE USER IF NOT EXISTS '${XIPKI_DB_USER}'@'%' IDENTIFIED BY '${XIPKI_DB_PASS}';";
 
 # Create db ocspcache
-DB_OCSP_CACHE_NAME="ocspcache"
 mysql -u root -p$DB_ROOT_PASS -e "CREATE DATABASE IF NOT EXISTS ${DB_OCSP_CACHE_NAME} CHARSET utf8;";
 mysql -u root -p$DB_ROOT_PASS -e "GRANT ALL PRIVILEGES ON ${DB_OCSP_CACHE_NAME}.* TO '${XIPKI_DB_USER}'@'%';";
 
 # Create db ocspcrl
-DB_OCSP_CRL_NAME="ocspcrl"
 mysql -u root -p$DB_ROOT_PASS -e "CREATE DATABASE IF NOT EXISTS ${DB_OCSP_CRL_NAME} CHARSET utf8;";
 mysql -u root -p$DB_ROOT_PASS -e "GRANT ALL PRIVILEGES ON ${DB_OCSP_CRL_NAME}.* TO '${XIPKI_DB_USER}'@'%';";
 mysql -u root -p$DB_ROOT_PASS -e "FLUSH PRIVILEGES;";
