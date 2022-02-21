@@ -39,7 +39,7 @@
 		"response": "response",
 		"servletPaths": ["/root"],
 		"signer": "signer-root",
-		"stores": ["crlstore1"]
+		"stores": ["store-root"]
 	}, {
 		"name": "responder-intermediate",
 		"inheritCaRevocation": true,
@@ -48,7 +48,7 @@
 		"response": "response",
 		"servletPaths": ["/intermediate"],
 		"signer": "signer-intermediate",
-		"stores": ["crlstore2"]
+		"stores": ["store-intermediate"]
 	}],
 	"responseOptions": [{
 		"name": "response",
